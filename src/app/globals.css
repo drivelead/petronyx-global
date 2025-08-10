@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fffcf4;
+  --foreground: #000000;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000000;
+    --foreground: #fffcf4;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "din-arabic", sans-serif;
+}
+
+/* App-like interaction defaults */
+html, body {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior: none;            /* prevent rubber-banding between routes */
+  scrollbar-gutter: stable;  /* avoid layout shift when scrollbars appear */
+  overflow-x: clip;                           /* prevent tiny horizontal leaks */
+}
+
+/* Put this class on your main wrapper to apply the lockdown */
+.app-like {
+  -webkit-tap-highlight-color: transparent;  /* remove grey/blue tap flash on mobile */
+  -webkit-touch-callout: none;               /* no iOS callout on long press */
+  user-select: none;                          /* disable text selection by default */
+  -webkit-user-select: none;
+}
+
+/* Re-enable selection where it matters */
+.app-like input,
+.app-like textarea,
+.app-like [contenteditable="true"],
+.app-like ::selection {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Make buttons/links feel snappier on touch */
+button, a {
+  touch-action: manipulation; /* prevents 300ms delay, improves tap behavior */
+}
+
+/* Images & videos: no drag/ghost image */
+img, svg, video {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: auto; /* still clickable if needed */
+}
+
+/* Prevent accidental text selection while dragging in carousels */
+.embla, .embla__container, .embla__slide {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Optional: keep pointer from “text” cursor on headings/labels */
+h1,h2,h3,h4,h5,h6, .no-text-cursor {
+  cursor: default;
+}
