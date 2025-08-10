@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  faBars,
+  faLightbulbSlash,
+  faMagnifyingGlass,
+} from "@awesome.me/kit-d76275fcc0/icons/sharp/solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 function classNames(...cls: (string | boolean | undefined)[]) {
@@ -18,9 +24,9 @@ export default function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 transition-colors duration-200 p-6"
+      className="fixed top-0 left-0 right-0 z-50 transition-colors duration-200 p-6"
       role="banner">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-white text-black">
+      <div className="mx-auto px-6 bg-white text-black rounded-xs border border-zinc-400">
         <div className="flex h-20 items-center justify-between">
           {/* Brand */}
           <a
@@ -54,18 +60,15 @@ export default function Header() {
               type="button"
               aria-label="Search"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3.5-3.5" />
-              </svg>
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </button>
+
+            {/* Dark Mode Switcher */}
+            <button
+              type="button"
+              aria-label="Search"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition">
+              <FontAwesomeIcon icon={faLightbulbSlash} />
             </button>
 
             {/* Menu button */}
@@ -73,16 +76,7 @@ export default function Header() {
               type="button"
               aria-label="Open menu"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border transition">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round">
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              </svg>
+              <FontAwesomeIcon icon={faBars} className="h-5 w-5" />
             </button>
           </div>
         </div>

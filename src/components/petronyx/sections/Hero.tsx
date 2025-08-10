@@ -2,6 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@awesome.me/kit-d76275fcc0/icons/sharp/solid";
 
 export default function Hero() {
   return (
@@ -24,7 +26,7 @@ export default function Hero() {
         <div className="absolute inset-0 grid place-items-center px-6">
           <div className="max-w-5xl text-center">
             <h1 className="text-white text-4xl leading-tight tracking-tight sm:text-5xl md:text-6xl font-semibold">
-              Global Energy Supply. Unmatched Reliability.
+              Global Energy Supply
             </h1>
             <p className="mt-4 text-white/90 text-base sm:text-lg">
               Refined petroleum products delivered worldwide — ULSD EN590, Jet
@@ -42,17 +44,11 @@ export default function Hero() {
 
         {/* Subtle scroll cue */}
         <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
-          <svg
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className="text-white animate-bounce"
             aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="h-6 w-6 animate-bounce text-white/80"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round">
-            <path d="M6 9l6 6 6-6" />
-          </svg>
+          />
         </div>
       </div>
     </section>

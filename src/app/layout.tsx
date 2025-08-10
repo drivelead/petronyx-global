@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="apple-mobile-web-app-title" content="Petronyx" />
         <link rel="stylesheet" href="https://use.typekit.net/gdj5hiw.css" />
       </head>
       <body className="app-like antialiased tracking-tight leading-snug">

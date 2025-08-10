@@ -2,16 +2,17 @@
 // Authoritative company introduction for Petronyx Global.
 // Mature tone, concise proof points, accessible structure.
 
+import Link from "next/link";
 import React from "react";
 
 export default function CompanyIntro() {
   return (
     <section className="relative bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
         <div className="grid gap-10 md:grid-cols-12 md:gap-12">
           {/* Copy */}
           <div className="md:col-span-7">
-            <h2 className="text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
               Independent Energy Trading, Built for Reliability
             </h2>
             <p className="mt-4 text-zinc-600 text-base leading-relaxed">
@@ -29,16 +30,16 @@ export default function CompanyIntro() {
               terminals, storage providers, and shipping partners.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
+              <Link
                 href="#products"
                 className="inline-flex items-center justify-center bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-800">
                 View Products
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#contact"
                 className="inline-flex items-center justify-center border border-zinc-300 px-5 py-3 text-sm font-medium text-zinc-900 hover:bg-zinc-50">
                 Contact Trading Desk
-              </a>
+              </Link>
             </div>
           </div>
 

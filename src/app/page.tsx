@@ -11,9 +11,9 @@ import Capabilities from "@/components/petronyx/sections/Capabilities";
 import OperationsValues from "@/components/petronyx/sections/OperationsValues";
 import WhyChoose from "@/components/petronyx/sections/WhyChoose";
 import GlobalPresence from "@/components/petronyx/sections/GlobalPresence";
-import ComplianceStrip from "@/components/petronyx/sections/ComplianceStrip";
 import SectorsServed from "@/components/petronyx/sections/SectorsServed";
 import ContactCTA from "@/components/petronyx/sections/ContactCTA";
+import GlobalPresenceMapSimple from "@/components/petronyx/sections/GlobalPresenceMap";
 
 export const metadata = {
   title: "Petronyx Global — Energy Supply. Global Reach.",
@@ -30,11 +30,6 @@ export default function HomePage() {
           <Hero />
         </section>
 
-        {/* Thin compliance/credibility bar under hero */}
-        <section id="compliance" aria-label="Compliance and Standards">
-          <ComplianceStrip />
-        </section>
-
         <section
           id="intro"
           aria-label="Company Introduction"
@@ -49,7 +44,6 @@ export default function HomePage() {
         <section id="services" aria-label="Services" className="scroll-mt-24">
           <Services />
         </section>
-        {/* 
         <section
           id="capabilities"
           aria-label="Capabilities"
@@ -75,7 +69,7 @@ export default function HomePage() {
           id="global-presence"
           aria-label="Global Presence"
           className="scroll-mt-24">
-          <GlobalPresence />
+          <GlobalPresenceMapSimple />
         </section>
 
         <section
@@ -90,7 +84,7 @@ export default function HomePage() {
           aria-label="Contact Trading Desk"
           className="scroll-mt-24">
           <ContactCTA />
-        </section> */}
+        </section>
       </div>
     </main>
   );

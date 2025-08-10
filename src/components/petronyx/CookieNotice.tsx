@@ -19,8 +19,8 @@ export default function CookieNotice() {
 
   return (
     <div className="fixed bottom-0 inset-x-0 z-50">
-      <div className="max-w-7xl mx-auto pb-2">
-        <div className="border-t border-zinc-200 bg-white text-black max-w-xl me-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col items-start sm:justify-between gap-4">
+      <div className="max-w-7xl mx-auto pb-6">
+        <div className="border border-zinc-200 bg-white text-black max-w-xl me-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col items-start sm:justify-between gap-4">
           <p className="text-sm text-zinc-700">
             We use cookies to enhance your browsing experience and analyse our
             traffic.
