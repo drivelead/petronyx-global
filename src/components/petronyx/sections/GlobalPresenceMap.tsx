@@ -10,6 +10,11 @@ import type {
   Geometry,
   GeoJsonProperties,
 } from "geojson";
+import type {
+  Topology,
+  Objects,
+  GeometryObject,
+} from "topojson-specification";
 
 type Port = {
   name: string;
@@ -42,6 +47,11 @@ const PORTS: Port[] = [
   { name: "Walvis Bay", coordinates: [14.5053, -22.9576], labelOffset: [4, 2] },
 ];
 
+// Type guard so we don’t use `any`
+function isTopology(x: unknown): x is Topology {
+  return typeof x === "object" && x !== null && "objects" in (x as Record<string, unknown>);
+}
+
 export default function GlobalPresenceMapSimple() {
   const [countries, setCountries] = useState<
     Feature<Geometry, GeoJsonProperties>[]
@@ -52,44 +62,51 @@ export default function GlobalPresenceMapSimple() {
       const res = await fetch(
         "https://cdn.jsdelivr.net/npm/visionscarto-world-atlas@1/world/110m.json"
       );
-      const worldData = (await res.json()) as any;
+      const data: unknown = await res.json();
+      if (!isTopology(data)) {
+        setCountries([]);
+        return;
+      }
 
-      const result = topojson.feature(
-        worldData,
-        worldData.objects.countries
-      ) as
-        | FeatureCollection<Geometry, GeoJsonProperties>
-        | Feature<Geometry, GeoJsonProperties>;
+      // `Topology.objects` is already a string-keyed map of GeometryObjects
+      const objects = data.objects as Objects<GeoJsonProperties>;
 
-      const list =
-        "features" in result
-          ? result.features
-          : ([result] as Feature<Geometry, GeoJsonProperties>[]);
+      // Prefer a "countries" object if present; otherwise fall back to the first object
+      const countriesObject: GeometryObject<GeoJsonProperties> | undefined =
+        (objects["countries"] as GeometryObject<GeoJsonProperties> | undefined) ??
+        (Object.values(objects)[0] as GeometryObject<GeoJsonProperties> | undefined);
 
-      // Filter out Antarctica by common property keys
-      const notAntarctica = list.filter((f) => {
-        const p = f.properties || {};
-        return !(
-          p.ISO_A3 === "ATA" ||
-          p.iso_a3 === "ATA" ||
-          p.NAME === "Antarctica" ||
-          p.name === "Antarctica" ||
-          p.name_long === "Antarctica"
-        );
+      if (!countriesObject) {
+        setCountries([]);
+        return;
+      }
+
+      const result =
+        topojson.feature(
+          data,
+          countriesObject
+        ) as
+          | FeatureCollection<Geometry, GeoJsonProperties>
+          | Feature<Geometry, GeoJsonProperties>;
+
+      const all = "features" in result ? result.features : [result];
+
+      // Robust Antarctica removal: drop anything with centroid latitude < −60°
+      const trimmed = all.filter((f) => {
+        const [, lat] = d3.geoCentroid(f);
+        return lat >= -60;
       });
 
-      setCountries(notAntarctica);
+      setCountries(trimmed);
     })();
   }, []);
 
   const width = 480;
   const height = 240;
 
-  const projection = d3
-    .geoNaturalEarth1()
-    .rotate([-34, 0])
-    .fitSize([width, height], { type: "Sphere" } as any);
-
+  // Rotate to your chosen framing (−34) and fit without `any`
+  const sphere: d3.GeoSphere = { type: "Sphere" };
+  const projection = d3.geoNaturalEarth1().rotate([-34, 0]).fitSize([width, height], sphere);
   const path = d3.geoPath(projection);
 
   return (
@@ -98,12 +115,12 @@ export default function GlobalPresenceMapSimple() {
         <header className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
           <h2
             id="presence-map-heading"
-            className="text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
+            className="text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl"
+          >
             Global Presence
           </h2>
           <p className="mt-2 max-w-3xl text-zinc-600">
-            Key trading and logistics hubs we operate through. Additional ports
-            available on request.
+            Key trading and logistics hubs we operate through. Additional ports available on request.
           </p>
         </header>
 
@@ -111,7 +128,8 @@ export default function GlobalPresenceMapSimple() {
           viewBox="0 0 480 240"
           className="w-full h-auto"
           role="img"
-          aria-label="World map with key Petronyx ports">
+          aria-label="World map with key Petronyx ports"
+        >
           <g>
             {countries.map((feature, i) => (
               <path
@@ -144,7 +162,8 @@ export default function GlobalPresenceMapSimple() {
                     x={x + (port.labelOffset?.[0] ?? 6)}
                     y={y + (port.labelOffset?.[1] ?? 2)}
                     className="hidden sm:block fill-zinc-900"
-                    fontSize={8}>
+                    fontSize={8}
+                  >
                     {port.name}
                   </text>
                   <title>{port.name}</title>
