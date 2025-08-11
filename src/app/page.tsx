@@ -1,16 +1,12 @@
 import React from "react";
-import Header from "@/components/petronyx/Header";
-import Footer from "@/components/petronyx/Footer";
 
 // Sections
 import Hero from "@/components/petronyx/sections/Hero";
 import CompanyIntro from "@/components/petronyx/sections/CompanyIntro";
 import Products from "@/components/petronyx/sections/Products";
 import Services from "@/components/petronyx/sections/Services";
-import Capabilities from "@/components/petronyx/sections/Capabilities";
 import OperationsValues from "@/components/petronyx/sections/OperationsValues";
 import WhyChoose from "@/components/petronyx/sections/WhyChoose";
-import GlobalPresence from "@/components/petronyx/sections/GlobalPresence";
 import SectorsServed from "@/components/petronyx/sections/SectorsServed";
 import ContactCTA from "@/components/petronyx/sections/ContactCTA";
 import GlobalPresenceMapSimple from "@/components/petronyx/sections/GlobalPresenceMap";
@@ -43,12 +39,6 @@ export default function HomePage() {
 
         <section id="services" aria-label="Services" className="scroll-mt-24">
           <Services />
-        </section>
-        <section
-          id="capabilities"
-          aria-label="Capabilities"
-          className="scroll-mt-24">
-          <Capabilities />
         </section>
 
         <section

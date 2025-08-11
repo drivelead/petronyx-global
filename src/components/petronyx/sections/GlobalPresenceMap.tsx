@@ -24,10 +24,12 @@ const PORTS: Port[] = [
   // Europe / Asia anchors
   { name: "Rotterdam", coordinates: [4.4792, 51.9225], labelOffset: [4, 0] },
   { name: "Singapore", coordinates: [103.8198, 1.3521], labelOffset: [4, 0] },
+  { name: "Ceyhan", coordinates: [35.817, 36.817], labelOffset: [4, 0] },
 
   // Americas
-  { name: "Houston", coordinates: [-95.265, 29.73], labelOffset: [4, 0] },
+  { name: "Houston", coordinates: [-95.265, 29.73], labelOffset: [4, -2] },
   { name: "Cartagena", coordinates: [-75.5144, 10.391], labelOffset: [4, 0] },
+  { name: "Freeport", coordinates: [-78.6956, 26.5333], labelOffset: [4, 6] },
   { name: "Santos", coordinates: [-46.328, -23.961], labelOffset: [4, 0] },
 
   // Africa
@@ -83,8 +85,10 @@ export default function GlobalPresenceMapSimple() {
   const width = 480;
   const height = 240;
 
-  const projection = d3.geoNaturalEarth1();
-  projection.fitSize([width, height], { type: "Sphere" } as any);
+  const projection = d3
+    .geoNaturalEarth1()
+    .rotate([-34, 0])
+    .fitSize([width, height], { type: "Sphere" } as any);
 
   const path = d3.geoPath(projection);
 
