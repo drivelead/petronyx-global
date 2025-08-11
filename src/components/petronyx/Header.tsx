@@ -16,7 +16,7 @@ export default function Header() {
       <div className="mx-auto px-6 bg-white text-black rounded-xs border border-zinc-400">
         <div className="flex h-20 items-center justify-between">
           {/* Brand */}
-          <a
+          <Link
             href="/"
             className="flex items-center gap-2"
             aria-label="Petronyx Global home">
@@ -31,7 +31,7 @@ export default function Header() {
             <span className="text-2xl font-semibold tracking-tight">
               Petronyx Global
             </span>
-          </a>
+          </Link>
 
           {/* Right controls */}
           <div className="flex items-center gap-2 sm:gap-3">

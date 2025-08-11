@@ -16,7 +16,7 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="pointer-events-none select-none object-cover"
+          className="pointer-events-none select-none object-cover saturate-[1.5] contrast-125"
         />
 
         {/* Dark overlay for legibility */}

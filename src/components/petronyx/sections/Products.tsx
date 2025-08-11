@@ -1,92 +1,73 @@
+// src/components/petronyx/sections/Products.tsx
 "use client";
 
 import React from "react";
-import useEmblaCarousel from "embla-carousel-react";
 
-const products = [
+type Product = {
+  title: string;
+  description: string;
+  bullets?: string[];
+};
+
+const PRODUCTS: Product[] = [
   {
     title: "ULSD EN590 (10ppm)",
     description:
-      "Ultra‑low sulphur diesel meeting EN590 specifications, sourced from top‑tier refineries.",
+      "Ultra-low sulphur diesel to EN590 (10ppm sulphur) from established refineries.",
+    bullets: ["Benchmarked to Platts/Argus", "Independent inspection on load"],
   },
   {
-    title: "Jet A1",
+    title: "Jet A-1",
     description:
-      "Aviation turbine fuel for commercial and cargo operators, delivered under CIF/FOB terms.",
+      "Aviation turbine fuel meeting international Jet A-1 specifications.",
+    bullets: ["DefStan/ASTM aligned", "Delivered under CIF/FOB terms"],
   },
   {
-    title: "Marine Fuels",
+    title: "Marine Fuels (MGO / IFO)",
     description:
-      "Marine gas oil (MGO) and intermediate fuel oil (IFO) compliant with IMO/MARPOL standards.",
+      "Marine gas oil and intermediate fuel oil compliant with IMO/MARPOL requirements.",
+    bullets: ["ISO 8217 grades", "Bunkering coordination available"],
   },
   {
-    title: "Gasoline Blends",
+    title: "Gasoline (RON95 / RON98)",
     description:
-      "RON95 / RON98 automotive gasoline meeting GCC and African market requirements.",
+      "Automotive gasoline blends supplied to EN228 or equivalent market specifications.",
+    bullets: ["Additive packages as contracted", "Batch CoA and traceability"],
   },
 ];
 
 export default function Products() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: "start",
-    skipSnaps: false,
-  });
-
-  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
-  const scrollNext = () => emblaApi && emblaApi.scrollNext();
-
   return (
-    <section className="bg-white py-16 sm:py-24">
+    <section className="bg-white py-16 sm:py-24" id="products" aria-labelledby="products-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-end justify-between">
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <header className="mb-8">
+          <h2
+            id="products-heading"
+            className="text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl"
+          >
             Products
           </h2>
-          <div className="hidden sm:flex items-center gap-2">
-            <button
-              onClick={scrollPrev}
-              aria-label="Previous"
-              className="h-10 w-10 border border-zinc-300 text-zinc-800 hover:bg-zinc-50">
-              <svg
-                viewBox="0 0 24 24"
-                className="mx-auto h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <button
-              onClick={scrollNext}
-              aria-label="Next"
-              className="h-10 w-10 border border-zinc-300 text-zinc-800 hover:bg-zinc-50">
-              <svg
-                viewBox="0 0 24 24"
-                className="mx-auto h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2">
-                <path d="M9 6l6 6-6 6" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex">
-            {products.map((p, idx) => (
-              <div
-                className="flex-[0_0_80%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] border border-zinc-200 p-6"
-                key={idx}>
-                <h3 className="text-xl font-bold text-zinc-900 mb-2">
-                  {p.title}
-                </h3>
-                <p className="text-sm text-zinc-600 leading-tight">
-                  {p.description}
-                </p>
-              </div>
-            ))}
-          </div>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-zinc-200 border border-zinc-300">
+          {PRODUCTS.map((p) => (
+            <article key={p.title} className="bg-white p-6">
+              <h3 className="text-lg font-semibold text-zinc-900">{p.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                {p.description}
+              </p>
+              {p.bullets && (
+                <ul className="mt-3 space-y-1 text-sm text-zinc-700">
+                  {p.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="mt-[6px] h-[3px] w-4 bg-zinc-900" aria-hidden />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))}
         </div>
       </div>
     </section>
